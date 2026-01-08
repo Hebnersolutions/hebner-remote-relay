@@ -52,3 +52,24 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# =========================
+# Node / Playwright
+# =========================
+node_modules/
+test-results/
+playwright-report/
+.nyc_output/
+coverage/
+
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Secrets
+# =========================
+.env
+.env.*
