@@ -1,0 +1,29 @@
+<Window x:Class="Hebner.Agent.Tray.EnrollmentPromptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Hebner Solutions Remote Support"
+        Height="180" Width="420"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        Topmost="True"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Enter your enrollment token" FontSize="16" FontWeight="Bold" />
+
+        <StackPanel Grid.Row="1" Margin="0,8,0,0">
+            <TextBlock Foreground="#666" Text="Token format example: AAAA-BBBB-CCCC-DDDD"/>
+            <TextBox x:Name="TxtToken" Margin="0,8,0,0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+            <Button x:Name="BtnCancel" Content="Cancel" Width="90" Height="30" Click="BtnCancel_Click"/>
+            <Button x:Name="BtnEnroll" Content="Enroll" Width="90" Height="30" Margin="8,0,0,0" Click="BtnEnroll_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,13 @@
+{
+  "name": "hebner-remote-support-e2e",
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "^1.36.0",
+    "ws": "^8.12.0"
+  },
+  "scripts": {
+    "test:setup": "npx playwright install",
+    "start:broker": "dotnet run --project src/Hebner.Agent.BrokerStub/Hebner.Agent.BrokerStub.csproj",
+    "test:console": "npx playwright test tests/console-frame.spec.ts --project=chromium --timeout=60000"
+  }
+}

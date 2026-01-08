@@ -1,0 +1,47 @@
+﻿<Window x:Class="Hebner.Agent.Tray.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Hebner Solutions Remote Support" Height="420" Width="520"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="22" FontWeight="SemiBold" Text="Hebner Solutions Remote Support" />
+        <TextBlock Grid.Row="1" Margin="0,8,0,0" Foreground="#666"
+                   Text="Installed agent is running. You can allow or stop sessions here." />
+
+        <Border Grid.Row="2" Margin="0,16,0,0" Padding="12" CornerRadius="10" BorderBrush="#DDD" BorderThickness="1">
+            <StackPanel>
+                <TextBlock FontWeight="Bold" Text="Status" />
+                <TextBlock Margin="0,4,0,0" Text="{Binding StatusText}" />
+
+                <TextBlock Margin="0,14,0,0" FontWeight="Bold" Text="Device ID" />
+                <TextBox Margin="0,4,0,0" Text="{Binding DeviceId}" IsReadOnly="True"/>
+
+                <TextBlock Margin="0,14,0,0" FontWeight="Bold" Text="Enrollment Token" />
+                <TextBox Margin="0,4,0,0" Text="{Binding EnrollmentTokenMasked}" IsReadOnly="True"/>
+
+                <TextBlock Margin="0,14,0,0" FontWeight="Bold" Text="Unattended Access" />
+                <CheckBox Margin="0,4,0,0" Content="Enable unattended access on this device"
+                          IsChecked="{Binding UnattendedEnabled}"/>
+
+                <TextBlock Margin="0,10,0,0" Foreground="#666"
+                           Text="If enabled, authorized techs in your organization can start a session without asking each time." TextWrapping="Wrap"/>
+
+                <TextBlock Margin="0,14,0,0" FontWeight="Bold" Text="Unattended Password (stored hashed)" />
+                <PasswordBox x:Name="Pwd" Margin="0,4,0,0" />
+                <Button Margin="0,8,0,0" Content="Set Password" Width="130" Click="SetPassword_Click"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="End Active Session" Width="160" Margin="0,0,8,0" Click="EndSession_Click"/>
+            <Button Content="Close" Width="90" Click="Close_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
