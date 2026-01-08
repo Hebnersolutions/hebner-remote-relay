@@ -26,14 +26,14 @@ int SafeGetAgentFrames(string sid) => sessionStats.TryGetValue(sid, out var v) ?
 int SafeGetHelperMessages(string sid) => sessionStats.TryGetValue(sid, out var v) ? v.helperMessages : 0;
 void IncrementAgentFrames(string sid)
 {
-    if (!sessionStats.ContainsKey(sid)) sessionStats[sid] = (0,0);
+    if (!sessionStats.ContainsKey(sid)) sessionStats[sid] = (0, 0);
     var v = sessionStats[sid];
     v.agentFrames = v.agentFrames + 1;
     sessionStats[sid] = v;
 }
 void IncrementHelperMessages(string sid)
 {
-    if (!sessionStats.ContainsKey(sid)) sessionStats[sid] = (0,0);
+    if (!sessionStats.ContainsKey(sid)) sessionStats[sid] = (0, 0);
     var v = sessionStats[sid];
     v.helperMessages = v.helperMessages + 1;
     sessionStats[sid] = v;
@@ -69,8 +69,8 @@ app.MapPost("/api/dev/enqueue", (string deviceId, BrokerCommand cmd) =>
 // Issue a short-lived tech token for the session
 app.MapPost("/api/sessions/{sessionId}/issue-tech-token", (string sessionId) =>
 {
-    var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(24)).Replace("=",""
-        ).Replace('+','-').Replace('/','_');
+    var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(24)).Replace("=", ""
+        ).Replace('+', '-').Replace('/', '_');
     var expires = DateTime.UtcNow.AddMinutes(30);
     techTokens[token] = (sessionId, expires);
     Console.WriteLine($"Issued tech token for session {sessionId}: {Mask(token)} expires {expires:O}");
@@ -300,7 +300,7 @@ app.Map("/ws/helper/{sessionId}", async (HttpContext ctx) =>
             }
         }
     }
-    catch (Exception ex){ Console.WriteLine(ex); }
+    catch (Exception ex) { Console.WriteLine(ex); }
     finally
     {
         helperConns[sessionId].Remove(ws);
@@ -360,7 +360,7 @@ app.Map("/ws/agent/{sessionId}", async (HttpContext ctx) =>
             }
         }
     }
-    catch (Exception ex){ Console.WriteLine(ex); }
+    catch (Exception ex) { Console.WriteLine(ex); }
     finally
     {
         agentConns[sessionId].Remove(ws);
@@ -388,7 +388,10 @@ string Mask(string s)
 {
     if (string.IsNullOrEmpty(s)) return "(empty)";
     if (s.Length <= 8) return s;
-    return s.Substring(0,4)+"-****-"+s.Substring(s.Length-4);
+    return s.Substring(0, 4) + "-****-" + s.Substring(s.Length - 4);
 }
 
-app.Run("http://127.0.0.1:5189");
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+app.MapGet("/health", () => Results.Ok(new { ok = true }));
+app.Run($"http://0.0.0.0:{port}");
+
